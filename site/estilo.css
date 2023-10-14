@@ -96,3 +96,15 @@ body {
     background-color: #2b3b3b;
 
 }
+.popup-message {
+    background-color: #2b3b3b !important;
+    color: #fff !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    padding: 5px 10px !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 5px;
+}
