@@ -19,3 +19,13 @@ CREATE TABLE pacientes (
     sexo ENUM('feminino', 'masculino', 'outro') NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
+
+CREATE TABLE medico (
+	id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL, -- Define a coluna 'name' como uma string de até 255 caracteres, não pode ser deixada em branco.
+    idade INT(3) NOT NULL,
+    email VARCHAR(255) NOT NULL, -- Define a coluna 'email' como uma string de até 255 caracteres, não pode ser deixada em branco.
+    telefone VARCHAR(15) NOT NULL,
+	dia_consulta DATE NOT NULL,
+    sexo ENUM('feminino', 'masculino', 'outro') NOT NULL
+);

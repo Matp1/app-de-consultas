@@ -1,20 +1,36 @@
 <?php
 session_start();
 
-require_once "config.php";
+    require_once "config.php";
+    
 
-function logout()
-{
-    session_unset();
-    session_destroy();
-    header("Location: login.php");
-    exit;
-}
+    function logout()
+    {
+        session_unset();
+        session_destroy();
+        header("Location: login.php");
+        exit;
+    }
 
-if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    header("Location: login.php");
-    exit;
-}
+    if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+        header("Location: login.php");
+        exit;
+    }
+
+    $sql = "INSERT INTO medico (name, email)
+        SELECT name, email
+        FROM users";
+
+    $sql = "INSERT INTO medico (idade, telefone, sexo)
+    SELECT idade, telefone, sexo
+    FROM pacientes";
+
+    $sql = "SELECT * FROM medico ORDER BY id DESC";
+
+    $result = $conn->query($sql);
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -25,6 +41,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="site2.css">
     <link rel="shortcut icon" href="Icon.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>Consulta</title>
 </head>
 
@@ -49,7 +66,41 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         </form>
 
     </div>
-
+        <div class="m-5">
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Idade</th>
+                    <th scope="col">E-mail</th>
+                    <th scope="col">Telefone</th>
+                    <th scope="col">Genêro</th>
+                    <th scope="col">Médico</th>
+                    <th scope="col">Dia</th>
+                    <th scope="col">Período</th>
+                    <th scope="col">...</th>
+                    </tr>
+                </thead>
+                <tbody >
+                    <?php
+                        while($user_data = mysqli_fetch_assoc($result)){
+                            echo "<tr>";
+                            echo "<td>".$user_data['id']."</td>";
+                            echo "<td>".$user_data['name']."</td>";
+                            echo "<td>".$user_data['idade']."</td>";
+                            echo "<td>".$user_data['email']."</td>";
+                            echo "<td>".$user_data['telefone']."</td>";
+                            echo "<td>".$user_data['sexo']."</td>";
+                            echo "<td>".$user_data['id']."</td>";
+                            echo "<td>".$user_data['id']."</td>";
+                            echo "<td>".$user_data['id']."</td>";
+                            echo "<td>".$user_data['id']."</td>";
+                        }
+                    ?>
+                </tbody>
+            </table>
+        </div>           
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
         <input type="submit" name="logout" value="Logout">
 
@@ -81,6 +132,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             }
         });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 
 </html>
