@@ -7,12 +7,12 @@ function logout()
 {
     session_unset();
     session_destroy();
-    header("Location: card.php");
+    header("Location: card.html");
     exit;
 }
 
 if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    header("Location: card.php");
+    header("Location: card.html");
     exit;
 }
 ?>
